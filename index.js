@@ -1,6 +1,6 @@
 const {Command} = require('commander');
 
-const contactsOperations = require('./contacts.js');
+const {onReadFile, contactsPath} = require('./contacts.js');
 
 const program = new Command();
 
@@ -17,19 +17,19 @@ const argv = program.opts();
 function invokeAction({ action, id, name, email, phone }) {
     switch (action) {
       case 'list':
-        contactsOperations.listContacts(contactsOperations.contactsPath);
+        onReadFile(contactsPath, action);
         break;
   
       case 'get':
-        contactsOperations.getContactById(id);
+        onReadFile(contactsPath, action, id);
         break;
   
       case 'add':
-        contactsOperations.addContact(name, email, phone);
+        onReadFile(contactsPath, action, null, name, email, phone);
         break;
   
       case 'remove':
-        contactsOperations.removeContact(id);
+        onReadFile(contactsPath, action, id);
         break;
   
       default:
